@@ -1,14 +1,3 @@
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  font-family: sans-serif;
-  color: #fff;
-}
-
 .container {
   text-align: center;
 }
