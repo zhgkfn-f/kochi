@@ -5,12 +5,16 @@ body {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  font-family: sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   color: #fff;
 }
 
 .container {
   text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
 }
 
 .input-area {
@@ -32,7 +36,7 @@ button {
 #countdown {
   font-size: 48px;
   font-weight: bold;
-  margin-top: 20px;
+  letter-spacing: 2px;
 }
 
 #message {
