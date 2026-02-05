@@ -22,14 +22,11 @@ startBtn.addEventListener("click", () => {
   departure.setMinutes(minute);
   departure.setSeconds(0);
 
-  // すでに過ぎてたら翌日扱い
   if (departure <= now) {
     departure.setDate(departure.getDate() + 1);
   }
 
-  if (timerId) {
-    clearInterval(timerId);
-  }
+  if (timerId) clearInterval(timerId);
 
   timerId = setInterval(() => {
     const current = new Date();
