@@ -1,27 +1,56 @@
-.container {
-  text-align: center;
-}
-.input-area {
-  margin-bottom: 20px;
-}
-input[type="time"] {
-  padding: 8px;
-  font-size: 16px;
-}
-button {
-  padding: 8px 16px;
-  margin-left: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
+let timerId = null;
 
-#countdown {
-  font-size: 48px;
-  font-weight: bold;
-  margin-top: 20px;
-}
+const startBtn = document.getElementById("startBtn");
+const timeInput = document.getElementById("departureTime");
+const countdownEl = document.getElementById("countdown");
+const messageEl = document.getElementById("message");
 
-#message {
-  margin-top: 15px;
-  font-size: 20px;
-}
+startBtn.addEventListener("click", () => {
+  const timeValue = timeInput.value;
+
+  if (!timeValue) {
+    alert("出発時間を入力してね！");
+    return;
+  }
+
+  const [hour, minute] = timeValue.split(":").map(Number);
+
+  const now = new Date();
+  const departure = new Date();
+
+  departure.setHours(hour);
+  departure.setMinutes(minute);
+  departure.setSeconds(0);
+
+  // すでに過ぎてたら翌日扱い
+  if (departure <= now) {
+    departure.setDate(departure.getDate() + 1);
+  }
+
+  if (timerId) {
+    clearInterval(timerId);
+  }
+
+  timerId = setInterval(() => {
+    const current = new Date();
+    const diff = departure - current;
+
+    if (diff <= 0) {
+      clearInterval(timerId);
+      countdownEl.textContent = "00:00:00";
+      messageEl.textContent = "出発時間です！🚀";
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.textContent =
+      String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0");
+
+    messageEl.textContent = "準備してる？";
+  }, 1000);
+});
